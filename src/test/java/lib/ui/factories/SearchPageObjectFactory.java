@@ -4,6 +4,7 @@ import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.android.AndroidSearchPageObject;
 import lib.ui.ios.iOSSearchPageObject;
+import lib.ui.mobile_web.MWSearchPageObject;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class SearchPageObjectFactory
@@ -14,12 +15,12 @@ public class SearchPageObjectFactory
         {
             return new AndroidSearchPageObject(driver);
         }
-//        else if(Platform.getInstance().isMW()) {
-//            return new MvSearchPageObject(driver);
-//        }
+        else if(Platform.getInstance().isIOS()) {
+            return new iOSSearchPageObject(driver);
+        }
         else
         {
-            return new iOSSearchPageObject(driver);
+            return new MWSearchPageObject(driver);
         }
     }
 }
