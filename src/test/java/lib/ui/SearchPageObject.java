@@ -35,6 +35,14 @@ abstract public class SearchPageObject extends MainPageObject {
         this.waitForElementAndClick(SEARCH_INIT_ELEMENT,"Can't find and click search init element", 5 );
         this.waitForElementPresent(SEARCH_INIT_ELEMENT, "Can't find search in put after clicking search init element");
     }
+    public void clearSearchInput()
+    {
+        this.waitForElementAndClear(
+                SEARCH_INPUT,
+                "Cannot find input field",
+                5
+        );
+    }
 
     public void waitForCancelButtonToAppear()
     {

@@ -8,7 +8,11 @@ abstract public class MyListsPageObject extends MainPageObject{
     protected static String
             FOLDER_BY_NAME_TPL,
             ARTICLE_BY_TITLE_TPL,
-            CLOSE_SYNC_ARTICLE_DIALOG;
+            CLOSE_SYNC_ARTICLE_DIALOG,
+            READING_LISTS_TAB,
+            EDIT_BUTTON,
+            REMOVE_BUTTON;
+
 
 
     private static String getFolderXpathByName(String name_of_folder)
@@ -39,6 +43,23 @@ abstract public class MyListsPageObject extends MainPageObject{
         );
     }
 
+    public void openReadingLists()
+    {
+        this.waitForElementAndClick(
+                READING_LISTS_TAB,
+                "cannot find reading lists tab",
+                10
+        );
+    }
+    public void waitForFolderPresent(String name_of_folder)
+    {
+        String folder_name_xpath = getFolderXpathByName(name_of_folder);
+        this.waitForElementPresent(
+                folder_name_xpath,
+                "Cannot find folder by name " + name_of_folder,
+                15
+        );
+    }
     public void waitForArticleToAppearByTitle (String article_title)
     {
         String article_xpath = getSavedArticleXpathByTitle(article_title);
@@ -73,5 +94,15 @@ abstract public class MyListsPageObject extends MainPageObject{
             this.clickElementToTheRightUpperCorner(article_xpath, "Can't find saved article");
         }
         this.waitForArticleToDisappearByTitle(article_title);
+    }
+    public void deleteSavedArticle(String article_title)
+    {
+        this.waitForElementAndClick(EDIT_BUTTON, "Can't fing edit button", 5);
+        this.waitForElementAndClick(
+                getSavedArticleXpathByTitle(article_title),
+                "Can't find saved article" + article_title,
+                5
+        );
+        this.waitForElementAndClick(REMOVE_BUTTON, "Can't find remove button", 5);
     }
 }

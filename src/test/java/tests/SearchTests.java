@@ -10,7 +10,7 @@ public class SearchTests extends CoreTestCase
     @Test
     public void testSearch() throws InterruptedException {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-        Thread.sleep(2000);
+        Thread.sleep(10000);
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.waitForSearchResult("bject-oriented programming language");

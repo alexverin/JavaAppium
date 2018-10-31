@@ -1,5 +1,6 @@
 package lib.ui;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -37,6 +38,17 @@ abstract public class ArticlePageObject extends MainPageObject {
             return title_element.getAttribute("text");
         } else {
             return title_element.getAttribute("name");
+        }
+    }
+
+
+    public void scrollWebPageUp()
+    {
+        if (Platform.getInstance().isMW()){
+            JavascriptExecutor JSExecutor = (JavascriptExecutor) driver;
+            JSExecutor.executeScript("window.scrollBy(0, 250)");
+        } else {
+            System.out.println("Method scrollWebPageUp() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
 
