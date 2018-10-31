@@ -14,7 +14,7 @@ public class SearchPageObjectFactory
         {
             return new AndroidSearchPageObject(driver);
         }
-//        else if(Platform.getInstance().isMv()) {
+//        else if(Platform.getInstance().isMW()) {
 //            return new MvSearchPageObject(driver);
 //        }
         else

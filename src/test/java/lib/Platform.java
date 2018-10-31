@@ -2,10 +2,14 @@ package lib;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Platform {
     private static final String PLATFORM_IOS = "ios";
@@ -42,6 +46,12 @@ public class Platform {
         {
             return new IOSDriver(URL, this.getIOSDesiredCapabilities());
         }
+        else if (this.isMW())
+        {
+            return new ChromeDriver(this.getMVChromeOptions());
+        }
+
+
         else
         {
             throw new Exception("Can't detect type of Driver. Platform value: " + this.getPlatformVar());
@@ -57,7 +67,7 @@ public class Platform {
     {
         return isPlatform(PLATFORM_IOS);
     }
-    public boolean isMv()
+    public boolean isMW()
     {
         return isPlatform(PLATFORM_MOBILE_WEB);
     }
@@ -83,6 +93,22 @@ public class Platform {
         capabilities.setCapability("platformVersion", "12.1");
         capabilities.setCapability("app", "/Users/alekseyverin/JAA_MY/apks/Wikipedia.app");
         return capabilities;
+    }
+    private ChromeOptions getMVChromeOptions()
+    {
+        Map<String, Object> devicesMetrics = new HashMap<String, Object>();
+
+        devicesMetrics.put("width", 360);
+        devicesMetrics.put("height", 640);
+        devicesMetrics.put("pixelRatio", 3.0);
+
+        Map<String, Object> mobileEmulation = new HashMap<String, Object>();
+        mobileEmulation.put("deviceMetrics", devicesMetrics);
+        mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("window-size=340, 640");
+
+        return chromeOptions;
     }
 
     private boolean isPlatform(String my_platform) {
